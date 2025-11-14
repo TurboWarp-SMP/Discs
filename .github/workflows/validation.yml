@@ -1,4 +1,4 @@
-name: PR Validation
+name: Validation
 
 on:
   pull_request:
@@ -43,4 +43,4 @@ jobs:
         with:
           name: build-artifacts
           path: build/libs/
-          retention-days: 7
+          retention-days: 1

@@ -2,10 +2,8 @@ name: Build & Release
 
 on:
   push:
-    branches: [ main ]
     tags:
-      - 'v*'
-  workflow_dispatch:
+      - "v*"
 
 permissions:
   contents: write
@@ -13,96 +11,72 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Mod Building
-
     outputs:
-      version: ${{ steps.version.outputs.version }}
-      filename: ${{ steps.build.outputs.filename }}
+      jar_file: ${{ steps.build.outputs.jar_file }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
           cache: gradle
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build project
+      - name: Build
         id: build
         run: |
+          chmod +x ./gradlew
           ./gradlew build
-          JAR_FILE=$(ls build/libs/*.jar | grep -v sources | head -1)
-          echo "filename=$(basename $JAR_FILE)" >> $GITHUB_OUTPUT
 
-      - name: Get version from gradle.properties
-        id: version
-        run: |
-          VERSION=$(grep "^mod_version=" gradle.properties | cut -d'=' -f2)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: mod-build
-          path: build/libs/
+          JAR=$(ls build/libs/*.jar | grep -v sources | head -1)
+          echo "jar_file=$JAR" >> $GITHUB_OUTPUT
 
   release:
     needs: build
     runs-on: ubuntu-latest
-    name: Create Release
-    if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
-      - name: Checkout (fetch tags)
+      - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Determine tag and annotated message
-        id: taginfo
+      - name: Extract changelog section
+        id: changelog
         run: |
-          TAG=${GITHUB_REF##*/}
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          # Try to read annotated tag contents
-          BODY=$(git for-each-ref --format='%(contents)' refs/tags/$TAG 2>/dev/null || true)
+          TAG="${GITHUB_REF_NAME}"
+
+          # Extract the section for this version
+          BODY=$(awk "/^## $TAG/{flag=1;next}/^## /{flag=0}flag" CHANGELOG.md)
+
+          # Fallback if there's no entry
           if [ -z "$BODY" ]; then
-            BODY=$(git tag -l --format='%(contents)' "$TAG" 2>/dev/null || true)
+            BODY="No changelog entry found for $TAG."
           fi
-          # Fallback to commit message if no tag message
-          if [ -z "$BODY" ]; then
-            BODY=$(git log -1 --pretty=%B)
-          fi
+
           echo "body<<EOF" >> $GITHUB_OUTPUT
           echo "$BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: mod-build
-          path: ./artifacts
-
       - name: Create GitHub Release
         id: create_release
-        run: |
-          RESPONSE=$(curl -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/releases \
-            -d "{\"tag_name\":\"${{ steps.taginfo.outputs.tag }}\",\"name\":\"${{ steps.taginfo.outputs.tag }}\",\"body\":$(echo '${{ steps.taginfo.outputs.body }}' | jq -Rs .),\"draft\":false,\"prerelease\":false}")
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.body }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          UPLOAD_URL=$(echo $RESPONSE | jq -r '.upload_url' | sed 's/{?name,label}//')
-          echo "upload_url=$UPLOAD_URL" >> $GITHUB_OUTPUT
-
-      - name: Upload release asset
-        run: |
-          JAR_FILE=$(ls artifacts/*.jar | grep -v sources | head -1)
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: application/octet-stream" \
-            --data-binary @"$JAR_FILE" \
-            "${{ steps.create_release.outputs.upload_url }}?name=$(basename $JAR_FILE)"
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ needs.build.outputs.jar_file }}
+          asset_name: $(basename ${{ needs.build.outputs.jar_file }})
+          asset_content_type: application/java-archive
