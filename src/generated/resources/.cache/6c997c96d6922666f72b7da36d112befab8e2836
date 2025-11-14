@@ -1,0 +1,4 @@
+// 1.20.1	2025-11-08T22:14:21.9266179	Global Loot Modifiers : discs
+06b13aa8396c318538f496769d2c0262cd686f09 data/discs/loot_modifiers/lava_chicken_disc_from_chicken_jockey.json
+561d15d8914a664e66fe942802348847dec43328 data/discs/loot_modifiers/thick_of_it_disc_from_igloo.json
+f12fa590a55f8a6adab4ae67002e83b535f79206 data/forge/loot_modifiers/global_loot_modifiers.json

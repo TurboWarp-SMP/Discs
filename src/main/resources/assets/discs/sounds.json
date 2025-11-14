@@ -1,0 +1,59 @@
+{
+  "work_dj": {
+    "sounds": [
+      {
+        "name": "discs:work_dj",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.entity.villager.work_dj"
+  },
+  "lava_chicken": {
+    "sounds": [
+      {
+        "name": "discs:lava_chicken",
+        "stream": true
+      }
+    ]
+  },
+  "the_skibidi_penguinmod_song": {
+    "sounds": [
+      {
+        "name": "discs:the_skibidi_penguinmod_song",
+        "stream": true
+      }
+    ]
+  },
+  "wither_storm_theme": {
+    "sounds": [
+      {
+        "name": "discs:wither_storm_theme",
+        "stream": true
+      }
+    ]
+  },
+  "never_gonna_give_you_up": {
+    "sounds": [
+      {
+        "name": "discs:never_gonna_give_you_up",
+        "stream": true
+      }
+    ]
+  },
+  "thick_of_it": {
+    "sounds": [
+      {
+        "name": "discs:thick_of_it",
+        "stream": true
+      }
+    ]
+  },
+  "stuck_inside": {
+    "sounds": [
+      {
+        "name": "discs:stuck_inside",
+        "stream": true
+      }
+    ]
+  }
+}

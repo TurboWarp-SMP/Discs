@@ -1,0 +1,19 @@
+{
+  "type": "discs:add_item",
+  "conditions": [
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "minecraft:zombie",
+        "flags": {
+          "is_baby": true
+        },
+        "vehicle": {
+          "type": "minecraft:chicken"
+        }
+      }
+    }
+  ],
+  "item": "discs:music_disc_lava_chicken"
+}

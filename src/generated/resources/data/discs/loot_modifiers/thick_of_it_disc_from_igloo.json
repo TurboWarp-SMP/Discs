@@ -1,0 +1,10 @@
+{
+  "type": "discs:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/igloo_chest"
+    }
+  ],
+  "item": "discs:music_disc_thick_of_it"
+}
