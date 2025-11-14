@@ -88,20 +88,21 @@ jobs:
 
       - name: Create GitHub Release
         id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ steps.taginfo.outputs.tag }}
-          release_name: ${{ steps.taginfo.outputs.tag }}
-          body: ${{ steps.taginfo.outputs.body }}
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RESPONSE=$(curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/releases \
+            -d "{\"tag_name\":\"${{ steps.taginfo.outputs.tag }}\",\"name\":\"${{ steps.taginfo.outputs.tag }}\",\"body\":$(echo '${{ steps.taginfo.outputs.body }}' | jq -Rs .),\"draft\":false,\"prerelease\":false}")
+          
+          UPLOAD_URL=$(echo $RESPONSE | jq -r '.upload_url' | sed 's/{?name,label}//')
+          echo "upload_url=$UPLOAD_URL" >> $GITHUB_OUTPUT
 
       - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/${{ needs.build.outputs.filename }}
-          asset_name: ${{ needs.build.outputs.filename }}
-          asset_content_type: application/java-archive
+        run: |
+          JAR_FILE=$(ls artifacts/*.jar | grep -v sources | head -1)
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @"$JAR_FILE" \
+            "${{ steps.create_release.outputs.upload_url }}?name=$(basename $JAR_FILE)"
