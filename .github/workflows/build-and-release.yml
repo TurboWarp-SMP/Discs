@@ -37,8 +37,16 @@ jobs:
         id: build
         run: |
           ./gradlew build
-          JAR_FILE=$(ls build/libs/*.jar | grep -v sources | head -1)
-          echo "filename=$(basename $JAR_FILE)" >> $GITHUB_OUTPUT
+          # Read mod id and version from gradle.properties to match Gradle's jar naming
+          MOD_ID=$(grep "^mod_id=" gradle.properties | cut -d'=' -f2)
+          MOD_VER=$(grep "^mod_version=" gradle.properties | cut -d'=' -f2)
+          # Prefer the canonical Gradle artifact name: ${MOD_ID}-${MOD_VER}*.jar
+          JAR_FILE=$(ls build/libs/"${MOD_ID}-${MOD_VER}"*.jar 2>/dev/null | grep -v sources | head -1 || true)
+          # Fallback: pick the first non-sources jar
+          if [ -z "$JAR_FILE" ]; then
+            JAR_FILE=$(ls build/libs/*.jar | grep -v sources | head -1 || true)
+          fi
+          echo "filename=$(basename "$JAR_FILE")" >> $GITHUB_OUTPUT
 
       - name: Get version from gradle.properties
         id: version
