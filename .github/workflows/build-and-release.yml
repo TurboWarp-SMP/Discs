@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      jar_file: ${{ steps.build.outputs.jar_file }}
+      jar_name: ${{ steps.build.outputs.jar_name }}
 
     steps:
       - name: Checkout
@@ -31,8 +31,16 @@ jobs:
           chmod +x ./gradlew
           ./gradlew build
 
-          JAR=$(ls build/libs/*.jar | grep -v sources | head -1)
-          echo "jar_file=$JAR" >> $GITHUB_OUTPUT
+          JAR=$(find build/libs -maxdepth 1 -type f -name "*.jar" ! -name "*sources*" ! -name "*dev*" | head -n 1)
+
+          echo "Found JAR: $JAR"
+          echo "jar_name=$(basename "$JAR")" >> $GITHUB_OUTPUT
+
+      - name: Upload JAR as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mod-jar
+          path: build/libs/${{ steps.build.outputs.jar_name }}
 
   release:
     needs: build
@@ -49,10 +57,8 @@ jobs:
         run: |
           TAG="${GITHUB_REF_NAME}"
 
-          # Extract the section for this version
           BODY=$(awk "/^## $TAG/{flag=1;next}/^## /{flag=0}flag" CHANGELOG.md)
 
-          # Fallback if there's no entry
           if [ -z "$BODY" ]; then
             BODY="No changelog entry found for $TAG."
           fi
@@ -71,12 +77,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Download built jar
+        uses: actions/download-artifact@v4
+        with:
+          name: mod-jar
+          path: dist
+
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ needs.build.outputs.jar_file }}
-          asset_name: $(basename ${{ needs.build.outputs.jar_file }})
+          asset_path: dist/${{ needs.build.outputs.jar_name }}
+          asset_name: ${{ needs.build.outputs.jar_name }}
           asset_content_type: application/java-archive
