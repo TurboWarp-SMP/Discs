@@ -36,3 +36,12 @@ You can find the song [here](https://www.youtube.com/watch?v=K6Cpxjx2oUg)
 ![Stuck Inside (Green Skeleton Cover)](src/main/resources/assets/discs/textures/item/music_disc_stuck_inside.png) **Stuck Inside (Green Skeleton Cover)**\
 This disc is obtained via Creeper killed by Skeleton drops\
 You can find the song [here](https://www.youtube.com/watch?v=pcwLin54JcE)
+
+![Bad Apple](src/main/resources/assets/discs/textures/item/music_disc_bad_apple.png) **Bad Apple**\
+This disc is obtained via trading with the DJ villager\
+You can find the song [here](https://www.youtube.com/watch?v=FtutLA63Cp8)
+
+![Isolation](src/main/resources/assets/discs/textures/item/music_disc_isolation.png) **Isolation**\
+This disc is obtained via Creeper killed by Skeleton drops\
+Music credit goes to **NightHawk22**\
+You can find the song [here](https://www.youtube.com/watch?v=O07SX0BliAQ)

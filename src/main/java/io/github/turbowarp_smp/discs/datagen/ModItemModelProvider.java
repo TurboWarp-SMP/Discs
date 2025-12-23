@@ -23,6 +23,8 @@ public class ModItemModelProvider extends ItemModelProvider {
     simpleItem(ModItems.MUSIC_DISC_NEVER_GONNA_GIVE_YOU_UP);
     simpleItem(ModItems.MUSIC_DISC_THICK_OF_IT);
     simpleItem(ModItems.MUSIC_DISC_STUCK_INSIDE);
+    simpleItem(ModItems.MUSIC_DISC_BAD_APPLE);
+    simpleItem(ModItems.MUSIC_DISC_ISOLATION);
   }
 
   private ItemModelBuilder simpleItem(RegistryObject<Item> item) {

@@ -22,6 +22,8 @@ public class ModSounds {
       "never_gonna_give_you_up");
   public static final RegistryObject<SoundEvent> THICK_OF_IT = registerSoundEvents("thick_of_it");
   public static final RegistryObject<SoundEvent> STUCK_INSIDE = registerSoundEvents("stuck_inside");
+  public static final RegistryObject<SoundEvent> BAD_APPLE = registerSoundEvents("bad_apple");
+  public static final RegistryObject<SoundEvent> ISOLATION = registerSoundEvents("isolation");
 
   private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
     return SOUND_EVENTS.register(name,

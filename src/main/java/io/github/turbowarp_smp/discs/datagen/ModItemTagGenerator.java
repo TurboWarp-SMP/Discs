@@ -27,8 +27,11 @@ public class ModItemTagGenerator extends ItemTagsProvider {
     this.tag(ItemTags.MUSIC_DISCS).add(ModItems.MUSIC_DISC_NEVER_GONNA_GIVE_YOU_UP.get());
     this.tag(ItemTags.MUSIC_DISCS).add(ModItems.MUSIC_DISC_THICK_OF_IT.get());
     this.tag(ItemTags.MUSIC_DISCS).add(ModItems.MUSIC_DISC_STUCK_INSIDE.get());
+    this.tag(ItemTags.MUSIC_DISCS).add(ModItems.MUSIC_DISC_BAD_APPLE.get());
+    this.tag(ItemTags.MUSIC_DISCS).add(ModItems.MUSIC_DISC_ISOLATION.get());
 
     this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.MUSIC_DISC_THE_SKIBIDI_PENGUINMOD_SONG.get());
     this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.MUSIC_DISC_STUCK_INSIDE.get());
+    this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ModItems.MUSIC_DISC_ISOLATION.get());
   }
 }

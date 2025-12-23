@@ -1,4 +1,6 @@
-// 1.20.1	2025-11-13T19:23:53.1782898	Item Models: discs
+// 1.20.1	2025-12-22T19:40:49.341691	Item Models: discs
+9bfba4902e9e76fcafa32ea8d68f49a46f414081 assets/discs/models/item/music_disc_bad_apple.json
+6c6db4a30e87f89557176df72cdbc211dc80a190 assets/discs/models/item/music_disc_isolation.json
 3ff4d6e3dd89c5022a80c0a903567027c58de678 assets/discs/models/item/music_disc_lava_chicken.json
 b0de988e911b9143de1540725d24c63d9ba05a2c assets/discs/models/item/music_disc_never_gonna_give_you_up.json
 36b8f094d449850d1c5316cc71a633610a359a36 assets/discs/models/item/music_disc_stuck_inside.json

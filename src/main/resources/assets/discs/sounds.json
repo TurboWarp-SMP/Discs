@@ -55,5 +55,21 @@
         "stream": true
       }
     ]
+  },
+  "bad_apple": {
+    "sounds": [
+      {
+        "name": "discs:bad_apple",
+        "stream": true
+      }
+    ]
+  },
+  "isolation": {
+    "sounds": [
+      {
+        "name": "discs:isolation",
+        "stream": true
+      }
+    ]
   }
 }

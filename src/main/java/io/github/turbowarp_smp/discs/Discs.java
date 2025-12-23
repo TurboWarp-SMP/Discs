@@ -22,49 +22,51 @@ import io.github.turbowarp_smp.discs.villager.ModVillagers;
 
 @Mod(Discs.MODID)
 public class Discs {
-    public static final String MODID = "discs";
-    private static final Logger LOGGER = LogUtils.getLogger();
+  public static final String MODID = "discs";
+  private static final Logger LOGGER = LogUtils.getLogger();
 
-    public Discs(FMLJavaModLoadingContext context) {
-        IEventBus modEventBus = context.getModEventBus();
+  public Discs(FMLJavaModLoadingContext context) {
+    IEventBus modEventBus = context.getModEventBus();
 
-        ModItems.register(modEventBus);
-        ModSounds.register(modEventBus);
+    ModItems.register(modEventBus);
+    ModSounds.register(modEventBus);
 
-        ModLootModifiers.register(modEventBus);
-        ModVillagers.register(modEventBus);
+    ModLootModifiers.register(modEventBus);
+    ModVillagers.register(modEventBus);
 
-        modEventBus.addListener(this::commonSetup);
+    modEventBus.addListener(this::commonSetup);
 
-        MinecraftForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
+    MinecraftForge.EVENT_BUS.register(this);
+    modEventBus.addListener(this::addCreative);
+  }
+
+  private void commonSetup(final FMLCommonSetupEvent event) {
+
+  }
+
+  private void addCreative(BuildCreativeModeTabContentsEvent event) {
+    if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+      event.accept(ModItems.MUSIC_DISC_LAVA_CHICKEN);
+      event.accept(ModItems.MUSIC_DISC_THE_SKIBIDI_PENGUINMOD_SONG);
+      event.accept(ModItems.MUSIC_DISC_WITHER_STORM_THEME);
+      event.accept(ModItems.MUSIC_DISC_NEVER_GONNA_GIVE_YOU_UP);
+      event.accept(ModItems.MUSIC_DISC_THICK_OF_IT);
+      event.accept(ModItems.MUSIC_DISC_STUCK_INSIDE);
+      event.accept(ModItems.MUSIC_DISC_BAD_APPLE);
+      event.accept(ModItems.MUSIC_DISC_ISOLATION);
     }
+  }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+  @SubscribeEvent
+  public void onServerStarting(ServerStartingEvent event) {
 
-    }
+  }
 
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.MUSIC_DISC_LAVA_CHICKEN);
-            event.accept(ModItems.MUSIC_DISC_THE_SKIBIDI_PENGUINMOD_SONG);
-            event.accept(ModItems.MUSIC_DISC_WITHER_STORM_THEME);
-            event.accept(ModItems.MUSIC_DISC_NEVER_GONNA_GIVE_YOU_UP);
-            event.accept(ModItems.MUSIC_DISC_THICK_OF_IT);
-            event.accept(ModItems.MUSIC_DISC_STUCK_INSIDE);
-        }
-    }
-
+  @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+  public static class ClientModEvents {
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent event) {
 
     }
-
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-
-        }
-    }
+  }
 }
