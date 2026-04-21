@@ -1,47 +1,25 @@
-# Discs
-This mod adds additional discs. This mod is intended for use on TurboWarp SMP but it's fine if used outside its original purpose.
 
-If people like this mod, I could expand on it in the future or make a non SMP focused version.
+Installation information
+=======
 
-## Features
-This mod contains a decent amount of content, such as:
- - Music Discs (of course)
- - A new villager profession called the "DJ" (links to a jukebox)
+This template repository can be directly cloned to get you started with a new
+mod. Simply create a new repository cloned from this one, by following the
+instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
-## Discs
-Expanding from the previous section, this mod adds several new music discs, such as:
+Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
 
-![Lava Chicken](src/main/resources/assets/discs/textures/item/music_disc_lava_chicken.png) **Lava Chicken**\
-This disc is fully backported from the latest versions of the game, obtainment is the same
+If at any point you are missing libraries in your IDE, or you've run into problems you can
+run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
+{this does not affect your code} and then start the process again.
 
-![The Skibidi PenguinMod Song](src/main/resources/assets/discs/textures/item/music_disc_the_skibidi_penguinmod_song.png) **The Skibidi PenguinMod Song**\
-This disc is obtained via Creeper killed by Skeleton drops\
-Music credit goes to @ddededodediamante\
-You can find the song [here](https://www.youtube.com/watch?v=IRltNNCLVFI)
+Mapping Names:
+============
+By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
+in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
+license. For the latest license text, refer to the mapping file itself, or the reference copy here:
+https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
 
-![Wither Storm Theme](src/main/resources/assets/discs/textures/item/music_disc_wither_storm_theme.png) **Wither Storm Theme**\
-This disc is obtained via crafting (8 disc fragments and a nether star)\
-Music credit goes to **Antimo & Welles**\
-You can find the song [here](https://www.youtube.com/watch?v=3NlkqN3O1MU)
-
-![Never Gonna Give You Up](src/main/resources/assets/discs/textures/item/music_disc_never_gonna_give_you_up.png) **Never Gonna Give You Up**\
-This disc is obtained via trading with the DJ villager\
-Music credit goes to **Rick Astley**\
-You can find the song [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
-![Thick Of It (Villager Cover)](src/main/resources/assets/discs/textures/item/music_disc_thick_of_it.png) **Thick Of It (Villager Cover)**\
-This disc is obtained via the chest that spawns in igloo basements\
-You can find the song [here](https://www.youtube.com/watch?v=K6Cpxjx2oUg)
-
-![Stuck Inside (Green Skeleton Cover)](src/main/resources/assets/discs/textures/item/music_disc_stuck_inside.png) **Stuck Inside (Green Skeleton Cover)**\
-This disc is obtained via Creeper killed by Skeleton drops\
-You can find the song [here](https://www.youtube.com/watch?v=pcwLin54JcE)
-
-![Bad Apple](src/main/resources/assets/discs/textures/item/music_disc_bad_apple.png) **Bad Apple**\
-This disc is obtained via trading with the DJ villager\
-You can find the song [here](https://www.youtube.com/watch?v=FtutLA63Cp8)
-
-![Isolation](src/main/resources/assets/discs/textures/item/music_disc_isolation.png) **Isolation**\
-This disc is obtained via Creeper killed by Skeleton drops\
-Music credit goes to **NightHawk22**\
-You can find the song [here](https://www.youtube.com/watch?v=O07SX0BliAQ)
+Additional Resources: 
+==========
+Community Documentation: https://docs.neoforged.net/  
+NeoForged Discord: https://discord.neoforged.net/

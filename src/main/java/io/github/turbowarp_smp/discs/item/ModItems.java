@@ -1,50 +1,76 @@
 package io.github.turbowarp_smp.discs.item;
 
 import io.github.turbowarp_smp.discs.Discs;
-import io.github.turbowarp_smp.discs.sound.ModSounds;
+import io.github.turbowarp_smp.discs.sound.ModJukeboxSongs;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.EitherHolder;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.JukeboxPlayable;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.RecordItem;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModItems {
-  public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Discs.MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Discs.MODID);
 
-  public static final RegistryObject<Item> MUSIC_DISC_LAVA_CHICKEN = ITEMS.register("music_disc_lava_chicken",
-      () -> new RecordItem(9, ModSounds.LAVA_CHICKEN,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE),
-          2700));
-  public static final RegistryObject<Item> MUSIC_DISC_THE_SKIBIDI_PENGUINMOD_SONG = ITEMS.register(
-      "music_disc_the_skibidi_penguinmod_song",
-      () -> new RecordItem(13, ModSounds.THE_SKIBIDI_PENGUINMOD_SONG,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3240));
-  public static final RegistryObject<Item> MUSIC_DISC_WITHER_STORM_THEME = ITEMS.register(
-      "music_disc_wither_storm_theme",
-      () -> new RecordItem(14, ModSounds.WITHER_STORM_THEME,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3600));
-  public static final RegistryObject<Item> MUSIC_DISC_NEVER_GONNA_GIVE_YOU_UP = ITEMS.register(
-      "music_disc_never_gonna_give_you_up",
-      () -> new RecordItem(15, ModSounds.NEVER_GONNA_GIVE_YOU_UP,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4240));
-  public static final RegistryObject<Item> MUSIC_DISC_THICK_OF_IT = ITEMS.register("music_disc_thick_of_it",
-      () -> new RecordItem(1, ModSounds.THICK_OF_IT,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE),
-          3240));
-  public static final RegistryObject<Item> MUSIC_DISC_STUCK_INSIDE = ITEMS.register("music_disc_stuck_inside",
-      () -> new RecordItem(12, ModSounds.STUCK_INSIDE,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE),
-          3320));
-  public static final RegistryObject<Item> MUSIC_DISC_BAD_APPLE = ITEMS.register("music_disc_bad_apple",
-      () -> new RecordItem(6, ModSounds.BAD_APPLE,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 4380));
-  public static final RegistryObject<Item> MUSIC_DISC_ISOLATION = ITEMS.register("music_disc_isolation",
-      () -> new RecordItem(8, ModSounds.ISOLATION,
-          new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 3980));
+    public static final DeferredItem<Item> MUSIC_DISC_LAVA_CHICKEN = ITEMS.registerItem(
+            "music_disc_lava_chicken",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.LAVA_CHICKEN), true)));
 
-  public static void register(IEventBus eventBus) {
-    ITEMS.register(eventBus);
-  }
+    public static final DeferredItem<Item> MUSIC_DISC_THE_SKIBIDI_PENGUINMOD_SONG = ITEMS.registerItem(
+            "music_disc_the_skibidi_penguinmod_song",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.THE_SKIBIDI_PENGUINMOD_SONG), true)));
+
+    public static final DeferredItem<Item> MUSIC_DISC_WITHER_STORM_THEME = ITEMS.registerItem(
+            "music_disc_wither_storm_theme",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.WITHER_STORM_THEME), true)));
+
+    public static final DeferredItem<Item> MUSIC_DISC_NEVER_GONNA_GIVE_YOU_UP = ITEMS.registerItem(
+            "music_disc_never_gonna_give_you_up",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.NEVER_GONNA_GIVE_YOU_UP), true)));
+
+    public static final DeferredItem<Item> MUSIC_DISC_THICK_OF_IT = ITEMS.registerItem(
+            "music_disc_thick_of_it",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.THICK_OF_IT), true)));
+
+    public static final DeferredItem<Item> MUSIC_DISC_STUCK_INSIDE = ITEMS.registerItem(
+            "music_disc_stuck_inside",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.STUCK_INSIDE), true)));
+
+    public static final DeferredItem<Item> MUSIC_DISC_BAD_APPLE = ITEMS.registerItem(
+            "music_disc_bad_apple",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.BAD_APPLE), true)));
+
+    public static final DeferredItem<Item> MUSIC_DISC_ISOLATION = ITEMS.registerItem(
+            "music_disc_isolation",
+            Item::new,
+            new Item.Properties().stacksTo(1).rarity(Rarity.RARE)
+                    .component(DataComponents.JUKEBOX_PLAYABLE,
+                            new JukeboxPlayable(new EitherHolder<>(ModJukeboxSongs.ISOLATION), true)));
+
+    public static void register(IEventBus eventBus) {
+        ITEMS.register(eventBus);
+    }
 }
